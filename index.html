@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="MonoAvatar learns a high-quality implicit 3D head avatar from a monocular RGB video captured in the wild.">
+  <meta name="keywords" content="MonoAvatar">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="MonoAvatar: Learning Personalized High Quality Volumetric Head Avatars from Monocular RGB Videos" />
+  <meta property="og:description" content="MonoAvatar learns a high-quality implicit 3D head avatar from a monocular RGB video captured in the wild." />
+  <meta property="og:image" content="./static/images/teaser.png" />
+  <title>MonoAvatar: Learning Personalized High Quality Volumetric Head Avatars from Monocular RGB Videos</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-T834G2HR2M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-T834G2HR2M');
+  </script> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">MonoAvatar: Learning Personalized High Quality Volumetric Head Avatars from Monocular RGB Videos</h1>
+          <h1 class="title is-size-3" style="color:#5a6268;">CVPR 2023</h1>
+          <div class="is-size-5 publication-authors" style="text-align: center; font-size: 25px; padding-top: 10px;">
+            <span class="author-block">
+              <a href="https://zqbai-jeremy.github.io">Ziqian Bai</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=en&user=qsrpuKIAAAAJ">Feitong Tan</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://zeng.science/">Zeng Huang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://krips89.github.io/profile_page/">Kripasindhu Sarkar</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=9uxs6G4AAAAJ&hl=en">Danhang Tang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sylqiu.github.io/">Di Qiu</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.meka.page/">Abhimitra Meka</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://duruofei.com/">Ruofei Du</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=DB8aKRgAAAAJ&hl=en">Mingsong Dou</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.es/citations?user=dznX1DMAAAAJ&hl=es">Sergio Orts-Escolano</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=lJ3VfV8AAAAJ&hl=en">Rohit Pandey</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.ca/citations?user=XhyKVFMAAAAJ&hl=en">Ping Tan</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://thabobeeler.com/">Thabo Beeler</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.seanfanello.it/">Sean Fanello</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.zhangyinda.com/">Yinda Zhang</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors" style="text-align: center;">
+            <span class="author-block"><sup>1</sup> Google,</span>
+            <span class="author-block"><sup>2</sup> Simon Fraser University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="./5636.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="./5636_supp.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Supplementary</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://zqbai-jeremy.github.io/autoavatar/static/images/video_arxiv.mp4"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/facebookresearch/AutoAvatar"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span> -->
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a> -->
+            </div>
+      
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img id="teaser" class="img-responsive img-rounded" src="./static/images/teaser.png" style="width:100%" alt="">
+      <h2 class="subtitle has-text-justified">
+        <b>MonoAvatar</b> builds a 3D avatar representation of a person using just a single short monocular RGB video (e.g., 1-2 minutes).
+        We leverage a 3DMM to track the user's expressions, and generate a volumetric photorealistic 3D avatar that can be rendered with
+        user-defined expression and viewpoint.
+        <!-- Note that our method works well on challenging materials, e.g., hair, and dramatic expressions. -->
+      </h2>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="columns is-centered has-text-centered" style="padding-top: 100px;">
+      <div class="column">
+        <div class="column content">
+          <video class="video_vertical_aign"
+                height="310"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject4.mp4"
+                    type="video/mp4">
+          </video>
+          <div class="container" style="margin-top: -150px; font-size: 20px;">
+            Input Driving Video &emsp;&emsp;&emsp;Rendered Avatar &emsp;&emsp;&emsp;Rendered Depth
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="column content">
+          <video class="video_vertical_aign"
+                height="310"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject1.mp4"
+                    type="video/mp4">
+          </video>
+          <div class="container" style="margin-top: -90px; font-size: 20px;">
+            Input Driving Video &emsp;&emsp;&emsp;Rendered Avatar &emsp;&emsp;&emsp;Rendered Depth
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We propose a method to learn a high-quality implicit 3D head avatar from a monocular RGB video captured in the wild. The
+            learnt avatar is driven by a parametric face model to achieve user-controlled facial expressions and head poses. Our hybrid
+            pipeline combines the geometry prior and dynamic tracking of a 3DMM with a neural radiance field to achieve fine-grained
+            control and photorealism. To reduce over-smoothing and improve out-of-model expressions synthesis, we propose to predict
+            local features anchored on the 3DMM geometry. These learnt features are driven by 3DMM deformation and interpolated in 3D
+            space to yield the volumetric radiance at a designated query point. We further show that using a Convolutional Neural Network
+            in the UV space is critical in incorporating spatial context and producing representative local features. Extensive experiments
+            show that we are able to reconstruct high-quality avatars, with more accurate expression-dependent details, good generalization
+            to out-of-training expressions, and quantitatively superior renderings compared to other state-of-the-art approaches.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div id="overview" class="hero-body">
+      <div class="columns is-centered has-text-centered"><h2 class="title is-3">Overview</h2></div>
+      <img class="img-responsive img-rounded" src="./static/images/overview.png" style="width:100%" alt="">
+      <h2 class="content has-text-justified">
+        Overview of our pipeline. The core of our method is the Avatar Representation (Sec.3.1. Shown as the yellow area) based on a
+        3DMM-anchored neural radiance field (NeRF), which are decoded from local features attached on the 3DMM vertices. Then, we use
+        volumetric rendering to compute the output image. To predict the vertex-attached features (Sec.3.2. Shown as the green area),
+        we first compute the vertex displacements from the 3DMM expression and pose, then process the displacements in UV space with
+        Convolutional Neural Networks (CNNs), and sample the obtained features back to mesh vertices.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="margin-top: -100px;">
+  <div class="container is-four-fifths">
+    <!--/ Results. -->
+    <div id="results" class="hero-body">
+      <!-- <div class="columns is-centered has-text-centered"><h2 class="title is-3">Results</h2></div> -->
+
+      <div class="container" style="text-align: center;">
+        <hr>
+        <br>
+        <h3 class="title is-3 has-text-centered">Results of driving the avatars by an unseen test video sequence of the subject</h3>
+        <p style="font-size: 20px; text-align:center">Labels &emsp;- &emsp;Left: Input Driving Video,  &emsp;Center: Rendered Avatar,  &emsp;Right: Rendered Depth</p>
+        <br>
+
+        Our learned avatar produces high-quality renderings and geometries, and captures personalized
+        characteristics such as <b>winkles</b>:
+        <div class="opacity-off">
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject0.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        Our method can also handle <b>fluffy</b> hairs and accessories like <b>glasses</b>:
+        <div class="opacity-off">
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject2.mp4"
+                    type="video/mp4">
+          </video>
+
+        </div>
+
+        Our method generates reasonable results for <b>challenging long hairs</b>. For more discussions,
+        please refer to the <a href="#limitations" style="color:rgb(4, 0, 255)">limitation</a> section at the end of the page.
+
+        <div class="opacity-off">
+
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject7.mp4"
+                    type="video/mp4">
+          </video>
+
+        </div>
+
+        Furthermore, our method can also reproduce <b>personalized complex expressions</b>.
+
+        <div class="opacity-off">
+
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject4.mp4"
+                    type="video/mp4">
+          </video>
+
+          <br>
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject11.mp4"
+                    type="video/mp4">
+          </video>
+
+          <br>
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject1.mp4"
+                    type="video/mp4">
+          </video>
+
+          <br>
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject8.mp4"
+                    type="video/mp4">
+          </video>
+
+          <br>
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject3.mp4"
+                    type="video/mp4">
+          </video>
+
+        </div>
+        <br>
+        <hr>
+        <br>
+
+        <h3 class="title is-3 has-text-centered">More Results of Multi-view Rendering</h3>
+        <p style="font-size: 20px; text-align:center">
+          Labels &emsp;- &emsp;From left to right: &emsp;(1) Input Driving Video, &emsp;(2) -15 degrees,
+          &emsp;(3) 0 degree, &emsp;(4) +15 degrees
+        </p>
+        <br>
+
+        <div class="opacity-off">
+
+          <video width="820"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject0_multiviews.mp4"
+                    type="video/mp4">
+          </video>
+          <br>
+          <video width="820"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject2_multiviews.mp4"
+                    type="video/mp4">
+          </video>
+          <br>
+
+          <video width="820"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject4_multiviews.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <h3 class="title is-3 has-text-centered">Results driven under different capturing conditions</h3>
+        <p style="font-size: 20px; text-align:center">Labels &emsp;- &emsp;Left: Input Driving Video,  &emsp;Center: Rendered Avatar,  &emsp;Right: Rendered Depth</p>
+        <br>
+
+        After training, the learned avatar model can be driven by the same subject under <b>different
+          capturing conditions</b>, such as differences in hair styles, illumination, and glasses.
+
+
+        <div class="opacity-off">
+
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject2_drive_rgbdepth.mp4"
+                    type="video/mp4">
+          </video>
+          <br>
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject1_drive_rgbdepth.mp4"
+                    type="video/mp4">
+          </video>
+          <br>
+
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject0_drive_rgbdepth.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <h3 id="limitations" class="title is-3 has-text-centered">Limitations when rendering from extreme views</h3>
+        <p style="font-size: 20px; text-align:center">Labels &emsp;- &emsp;Left: Input Driving Video,  &emsp;Center: Rendered Avatar,  &emsp;Right: Rendered Depth</p>
+        <br>
+
+        Nevertheless, our method still has limitations. Our results degrade when rendering from side
+        views with large angles, which is partially due to <i>missing data</i> for the back of the head.
+
+        <div class="opacity-off">
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject4_lim.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <br>
+
+        <h3 class="title is-3 has-text-centered">Limitations when rendering long hairs</h3>
+        Also, our method has difficulties on handling <i>long hairs with complex deformations</i>, which
+        cannot be captured by the 3DMM.
+
+        <div class="opacity-off">
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject7.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <br>
+
+        <h3 class="title is-3 has-text-centered">Limitations when rendering glasses deformed by 3DMM with refraction</h3>
+        Finally, the deformation on 3DMM surface may <i>incorrectly warp rigid accessories like
+        glasses</i>. Also, current method does not model refraction effects, which are overfitted by
+        incorrect appearances.
+
+        <div class="opacity-off">
+          <video width="640"
+                height="410"
+                controls
+                autoplay
+                muted
+                loop>
+            <source src="videos/subject2_lim.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+
+      </div>
+    </div>
+    <!--/ Results. -->
+  </div>
+</section>
+
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section> -->
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/pdf/2203.13817.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <!-- <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p> -->
+          <p>
+            This website borrows the template from <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
